@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的个人网站</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- 使用国内CDN加速，如果无法访问会自动回退到系统字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" onerror="this.remove()">
+    <!-- Font Awesome 使用国内CDN（bootcdn） -->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+          onerror="this.href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'; this.onerror=null;">
+</head>
+<body>
+    <!-- ============================================ -->
+    <!-- 📝 个人信息配置区域 - 请在这里填写你的信息 -->
+    <!-- ============================================ -->
+    <!-- 
+        使用说明：
+        1. name: 填写你的名字（例如："李四"）
+        2. subtitle: 填写副标题（例如："前端开发者 | 设计师"）
+        3. photos: 填写照片URL数组，支持多个照片，可以添加或删除
+            - 可以使用网络图片URL
+            - 也可以使用本地图片（例如："images/photo1.jpg"）
+        4. socialLinks: 填写社交媒体链接
+            - 如果某个平台不想显示，可以删除该行或设置为空字符串 ""
+            - email 需要使用 "mailto:" 开头（例如："mailto:your@email.com"）
+            - 支持：github, linkedin, twitter, instagram, email, facebook, youtube, wechat, weibo
+    -->
+    <script type="application/json" id="personalConfig">
+    {
+        "name": "张三",
+        "subtitle": "探索我的世界，与我交流",
+        "photos": [
+            "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80",
+            "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=800&q=80",
+            "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&q=80",
+            "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&q=80"
+        ],
+        "socialLinks": {
+            "github": "https://github.com/yourusername",
+            "linkedin": "https://linkedin.com/in/yourusername",
+            "twitter": "https://twitter.com/yourusername",
+            "instagram": "https://instagram.com/yourusername",
+            "email": "mailto:your.email@example.com"
+        }
+    }
+    </script>
+    <!-- ============================================ -->
+    <!-- 配置区域结束 -->
+    <!-- ============================================ -->
+
+    <!-- 编辑按钮 -->
+    <button class="edit-btn" id="editBtn" title="编辑个人信息">
+        <i class="fas fa-edit"></i>
+    </button>
+
+    <!-- 编辑面板 -->
+    <div class="edit-panel" id="editPanel">
+        <div class="edit-panel-content">
+            <div class="edit-panel-header">
+                <h2><i class="fas fa-cog"></i> 编辑个人信息</h2>
+                <button class="close-btn" id="closeEditBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="edit-panel-body">
+                <form id="personalInfoForm">
+                    <div class="form-group">
+                        <label for="editName">
+                            <i class="fas fa-user"></i> 名字
+                        </label>
+                        <input type="text" id="editName" placeholder="请输入你的名字">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editSubtitle">
+                            <i class="fas fa-quote-left"></i> 副标题
+                        </label>
+                        <input type="text" id="editSubtitle" placeholder="例如：前端开发者 | 设计师">
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-images"></i> 照片链接
+                        </label>
+                        <div id="photosList">
+                            <!-- 照片输入框将动态生成 -->
+                        </div>
+                        <button type="button" class="add-btn" id="addPhotoBtn">
+                            <i class="fas fa-plus"></i> 添加照片
+                        </button>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-share-alt"></i> 社交媒体链接
+                        </label>
+                        <div id="socialLinksList">
+                            <!-- 社交链接输入框将动态生成 -->
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="cancel-btn" id="cancelBtn">取消</button>
+                        <button type="submit" class="save-btn">
+                            <i class="fas fa-save"></i> 保存
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 头部区域 -->
+        <header class="header">
+            <h1 class="main-title" id="personalName">欢迎来到我的个人空间</h1>
+            <p class="subtitle" id="personalSubtitle">探索我的世界，与我交流</p>
+        </header>
+
+        <!-- 照片轮播区域 -->
+        <section class="photo-carousel-section">
+            <h2 class="section-title">我的照片</h2>
+            <div class="carousel-container">
+                <div class="carousel-wrapper" id="carouselWrapper">
+                    <!-- 照片将通过JavaScript动态加载 -->
+                </div>
+                <button class="carousel-btn prev" id="prevBtn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-btn next" id="nextBtn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="carousel-indicators" id="carouselIndicators">
+                    <!-- 指示器将通过JavaScript动态加载 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- AI对话界面 -->
+        <section class="chat-section">
+            <h2 class="section-title">与我对话</h2>
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message ai-message">
+                        <div class="message-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="message-content">
+                            <p>你好！我是你的AI助手。有什么我可以帮助你的吗？</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" id="chatInput" placeholder="输入消息..." autocomplete="off">
+                    <button id="sendBtn" class="send-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 社交媒体链接 -->
+        <footer class="social-footer">
+            <h2 class="section-title">关注我</h2>
+            <div class="social-links" id="socialLinksContainer">
+                <!-- 社交链接将通过JavaScript动态加载 -->
+            </div>
+            <p class="copyright">&copy; 2024 我的个人网站. 保留所有权利.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
